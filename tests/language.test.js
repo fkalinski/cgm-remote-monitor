@@ -11,6 +11,13 @@ describe('language', function ( ) {
     language.translate('Carbs').should.equal('Carbs');
   });
 
+  it('use English when language code is not known', function () {
+    var language = require('../lib/language')();
+    language.set('xx');
+    language.loadLocalization(fs);
+    language.translate('Carbs').should.equal('Carbs');
+  });
+
   it('translate to French', function () {
     var language = require('../lib/language')();
     language.set('fr');
@@ -30,6 +37,13 @@ describe('language', function ( ) {
     language.set('cs');
     language.loadLocalization(fs);
     language.translate('carbs', { ci: true }).should.equal('Sacharidy');
+  });
+
+  it('translate to Czech when language passed as uppercase', function () {
+    var language = require('../lib/language')();
+    language.set('CS');
+    language.loadLocalization(fs);
+    language.translate('Carbs').should.equal('Sacharidy');
   });
 
 });
